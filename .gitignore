@@ -1,0 +1,473 @@
+# =============================================================================
+# SX Mini Project 1 - repository exclusions
+# =============================================================================
+#
+# This repository contains C++ source code plus several large, reproducible, or
+# machine-specific trees.  Rules near the top are tailored to the current
+# project; the remaining rules protect future Visual Studio/CMake builds and
+# helper tooling from accidentally adding generated or private files.
+#
+# Intentionally kept in Git (do not add blanket *.png or *.txt rules):
+#   - Test_84_Signs/       required 84-image classroom input set (~2.7 MB)
+#   - shape_labels.txt     labels paired with that input set
+#   - *.cpp, *.h, *.bat    source and reproducible build/run scripts
+#   - root-level *.md      project documentation and analysis
+#
+# If an ignored generated artifact must be published, prefer a GitHub Release,
+# an external dataset URL, or `git add -f <path>` for a deliberate exception.
+
+
+# =============================================================================
+# Project-specific dependencies, downloads, builds, and generated artifacts
+# =============================================================================
+
+# Local OpenCV 4.x distribution: downloaded sources, headers, libraries, DLLs,
+# samples, and build products (~881 MB).  build.bat supports setting OPENCV_DIR
+# to another installation, so this dependency should not be vendored in Git.
+/opencv/
+
+# The root MSVC build created by build.bat: objects, executable, OpenCV runtime
+# DLLs, debug databases, and any later incremental build state.
+/build/
+
+# Per-image masks, segmented images, montage/stage renders, and diagnostic CSVs
+# created by normal batch runs (~41 MB and expected to change on every run).
+/Outputs/
+
+# Deterministically generated synthetic images, truth masks, predictions,
+# metadata, and evaluation reports.  Source.cpp can recreate the whole tree.
+/Synthetic_Background_Test/
+
+# Downloaded/extracted third-party datasets (~964 MB).  Keep the small,
+# human-authored provenance/reproduction note, but ignore archives and data.
+/External_Datasets/**
+!/External_Datasets/
+!/External_Datasets/CamVid/
+!/External_Datasets/CamVid/DATASET_INFO.md
+
+# Generated external evaluation data (~692 MB): predictions, truth crops,
+# diagnostics, tuning runs, CSVs, and summaries.  Preserve the three curated
+# README files that explain the recorded experiments and how to reproduce them.
+/External_Test_Results/**
+!/External_Test_Results/
+!/External_Test_Results/CamVid/
+!/External_Test_Results/CamVid/README.md
+!/External_Test_Results/CamVid32_HeldOut_Test/
+!/External_Test_Results/CamVid32_HeldOut_Test/README.md
+!/External_Test_Results/CamVid32_Improved/
+!/External_Test_Results/CamVid32_Improved/README.md
+
+# Local document-rendering exports and scratch work; neither path is consumed
+# by the C++ build or runtime.
+/output/
+/tmp/
+
+# Captured terminal output from a local test run; the command can regenerate it.
+/results_console.txt
+
+
+# =============================================================================
+# Visual Studio / MSVC
+# =============================================================================
+
+# Per-user solution state and IDE caches.
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.cache
+*.VC.db
+*.VC.opendb
+*.opendb
+*.sdf
+*.opensdf
+*.ncb
+ipch/
+
+# Standard configuration/platform output directories.
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Rr]elWithDebInfo/
+[Mm]inSizeRel/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Xx]64/
+[Xx]86/
+[Ww]in32/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Compiler, linker, resource compiler, and incremental-build products.
+*.obj
+*.o
+*.lo
+*.slo
+*.iobj
+*.pch
+*.gch
+*.ipch
+*.idb
+*.pdb
+*.ipdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.exe
+*.com
+*.res
+*.aps
+*.sbr
+*.bsc
+*.tlog
+*.lastbuildstate
+*.unsuccessfulbuild
+*.recipe
+*.buildlog
+*.d
+*.dep
+
+# Visual Studio generated/intermediate folders and reports.
+Generated\ Files/
+_UpgradeReport_Files/
+UpgradeLog*.XML
+UpgradeLog*.htm
+ServiceFabricBackup/
+FakesAssemblies/
+*.cachefile
+*.dbmdl
+*.jfm
+
+# Profiling, code coverage, test, and diagnostics output from Microsoft tools.
+*.vsp
+*.vspx
+*.sap
+*.psess
+*.vspf
+*.coverage
+*.coveragexml
+TestResults/
+BenchmarkDotNet.Artifacts/
+
+# Visual Studio extensions and analysis caches.
+.VisualState.xml
+.dtbcache.v2
+.futdcache.v2
+.ionide/
+_ReSharper*/
+*.DotSettings.user
+*.sln.iml
+
+
+# =============================================================================
+# CMake, Ninja, Make, Meson, and other native build systems
+# =============================================================================
+
+# CMake-generated state.  CMakeLists.txt and CMakePresets.json remain trackable.
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+CMakeUserPresets.json
+compile_commands.json
+cmake-build-*/
+_deps/
+
+# Ninja-generated state.
+build.ninja
+.ninja_deps
+.ninja_log
+rules.ninja
+
+# Meson-generated state.
+meson-private/
+meson-logs/
+meson-info/
+
+# Autotools/libtool-generated state.  Deliberately do not ignore Makefile,
+# since hand-written Makefiles are source files and should normally be tracked.
+.deps/
+.libs/
+autom4te.cache/
+aclocal.m4
+config.cache
+config.log
+config.status
+libtool
+*.la
+*.lai
+
+# Bazel output symlink trees.
+bazel-bin/
+bazel-out/
+bazel-testlogs/
+bazel-SX_mini_project_1/
+
+
+# =============================================================================
+# C/C++ tooling, static analysis, tests, coverage, and profiling
+# =============================================================================
+
+# Language-server and index databases.
+.clangd/
+.cache/clangd/
+.ccls-cache/
+.clang-tidy-cache/
+.cache/clang-tidy/
+*.idx
+*.index
+
+# GCC/Clang coverage and profile-guided-optimization data.
+*.gcda
+*.gcno
+*.gcov
+*.profraw
+*.profdata
+*.pgc
+*.pgd
+lcov.info
+coverage.info
+coverage/
+htmlcov/
+
+# Test/benchmark/profiler output.
+test-results/
+test_output/
+Testing/
+perf.data
+perf.data.old
+callgrind.out.*
+gmon.out
+
+# Crash dumps and runtime diagnostics.
+*.dmp
+*.mdmp
+*.core
+core
+core.*
+hs_err_pid*
+
+
+# =============================================================================
+# Native dependency/package managers
+# =============================================================================
+
+# vcpkg installed packages and generated manifests/build trees.  Keep the
+# source vcpkg.json and vcpkg-configuration.json files if they are added later.
+vcpkg_installed/
+.vcpkg-root
+
+# Conan-generated integration/build metadata.  Keep conanfile.py/txt.
+conanbuildinfo.*
+conanbuild.*
+conanrun.*
+conaninfo.txt
+graph_info.json
+
+# NuGet restore output and user-specific package state.
+/packages/
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+
+# =============================================================================
+# Editor and IDE workspace state
+# =============================================================================
+
+# VS Code: ignore machine/user state, but permit useful shared project configs.
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+
+# JetBrains IDEs and Fleet.
+.idea/
+.fleet/
+*.iml
+*.iws
+*.ipr
+
+# Vim/Neovim, Emacs, Sublime Text, and generic editor recovery files.
+*.swp
+*.swo
+*.swn
+*.un~
+*~
+.#*
+\#*\#
+*.sublime-workspace
+
+
+# =============================================================================
+# Temporary files, backups, logs, and local caches
+# =============================================================================
+
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.save
+*.autosave
+*.log
+*.trace
+*.pid
+*.pid.lock
+*.stackdump
+*.crdownload
+*.part
+*.partial
+*.download
+*.cache
+*.ilk.tmp
+.cache/
+.tmp/
+.temp/
+tmp/
+temp/
+logs/
+
+# Microsoft Office lock/recovery files (real documents remain trackable).
+~$*.doc*
+~$*.xls*
+~$*.ppt*
+*.asd
+*.wbk
+
+
+# =============================================================================
+# Secrets, credentials, signing keys, and local environment configuration
+# =============================================================================
+
+# Runtime environment files.  Checked-in templates remain allowed.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.envrc
+.direnv/
+
+# Private keys, certificates with embedded private keys, and key stores.
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Common service credentials and private local configuration.
+credentials.json
+credentials.*.json
+service-account*.json
+client_secret*.json
+.secrets/
+secrets.local.*
+.npmrc
+.pypirc
+
+
+# =============================================================================
+# Optional helper languages/tools that may be used for data preparation
+# =============================================================================
+
+# Python bytecode, test/type/lint caches, virtual environments, and packaging.
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+dist/
+.venv/
+venv/
+env/
+
+# Node.js package stores, build caches, and debug logs (for future utilities).
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.parcel-cache/
+.turbo/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Jupyter notebooks keep the notebook itself but not transient checkpoints.
+.ipynb_checkpoints/
+
+
+# =============================================================================
+# Generated documentation and local reports
+# =============================================================================
+
+# Default Doxygen output locations; source Markdown and Doxyfile stay tracked.
+/docs/html/
+/docs/latex/
+doxygen_sqlite3.db
+doxygen_warnings.log
+
+
+# =============================================================================
+# Operating-system metadata
+# =============================================================================
+
+# Windows Explorer, Recycle Bin, shortcuts, and thumbnail databases.
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS Finder, Spotlight, resource forks, and Trash metadata.
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100/
+.fseventsd/
+.Spotlight-V100/
+.TemporaryItems/
+.Trashes/
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Linux desktop trash and directory metadata.
+.directory
+.Trash-*
+.nfs*
