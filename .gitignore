@@ -471,3 +471,6 @@ Icon?
 .directory
 .Trash-*
 .nfs*
+
+# Local isolated development worktrees.
+.worktrees/
