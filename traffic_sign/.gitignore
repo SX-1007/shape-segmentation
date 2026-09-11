@@ -1,0 +1,36 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Coverage, profiling, and build artifacts
+.coverage
+.coverage.*
+htmlcov/
+*.prof
+*.egg-info/
+build/
+dist/
+
+# Generated segmentation outputs
+Outputs_Python/
+Outputs_Python_Fast/
+Synthetic_Python_Test/
+tmp/
+
+# Editors and operating systems
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
